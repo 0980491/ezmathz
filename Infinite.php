@@ -21,8 +21,8 @@
             <input type="text" class="form-control" id="answerInput" placeholder="Answer Here" autocomplete="off">
           </div>
           <center><button type="submit">Enter to submit</button></center>
-            <center><input type="button" value="End game" onclick="history.back()"></center>
         </form>
+        <center><a href='index.php'><button>End game</button></a></center>
       </div>
     </div>
   </div>
