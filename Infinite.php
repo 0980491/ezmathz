@@ -18,7 +18,7 @@
         </div>
         <form id="mathForm">
           <div class="form-group">
-            <input type="number" class="form-control" id="answerInput" placeholder="Answer Here" autocomplete="off">
+            <input type="number" class="form-control" min="-1000" max="1000" id="answerInput" placeholder="Answer Here" autocomplete="off">
           </div>
           <center><button type="submit">Enter to submit</button></center>
         </form>
