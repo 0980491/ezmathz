@@ -5,6 +5,7 @@
     <title>emathz</title>
     <link rel="shortcut icon" href="Img/emathz.png">
     <link rel="stylesheet" href="Index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </head>
 <body>
     <div class="Start">
