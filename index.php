@@ -22,7 +22,7 @@
         <h2>If you want to practice with infinite problems press here</h2>
         <center><a href='Infinite.php'><button>Start</button></a></center>
         <h2>If you want to see how good are you resolving simple mental math problem's press here</h2>
-        <center><a href='Test.php'><button>Start</button></a></center>
+        <center><a href='test.php'><button>Start</button></a></center>
     </div>
 </body>
 </html>
