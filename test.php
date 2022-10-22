@@ -12,7 +12,6 @@
     <div class="flexBox">
       <div class="mathCard">
         <?php
-          $a = $a+1;
           $Num1 = rand(0, 20);
           $Num2 = rand(0, 20);
           $op = rand(1, 3);
@@ -21,15 +20,15 @@
           switch($op) {
             case 1:
               $operation = $Num1" + "$Num2;
-              $result = $Num1+$Num2
+              $result = $Num1+$Num2;
             break;
             case 2:
               $operation = $Num1" - "$Num2;
-              $result = $Num1-$Num2
+              $result = $Num1-$Num2;
             break;
             case 3:
               $operation = $Num1" * "$Num2;
-              $result = $Num1*$Num2
+              $result = $Num1*$Num2;
             break;
           }
               echo "
@@ -56,7 +55,7 @@ if(isset($_POST["btningresar"]))
 {   
 	$r = $_POST["r"];
 	
-	if($r==result)
+	if($r==$result)
 	{   
 		header('location: test.php');
 		   
