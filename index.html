@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" data-theme="ink">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ezmathz</title>
+  <meta name="description" content="A minimal, fast mental math trainer. Timed tests of addition, subtraction, multiplication and division, with stats and personal bests.">
+  <meta name="theme-color" content="#15171c">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <a class="logo" href="#/" aria-label="ezmathz home">
+        <span class="logo-mark">±</span><span class="logo-text">ez<b>mathz</b></span>
+      </a>
+      <nav class="nav" aria-label="main">
+        <a href="#/" data-nav="test" title="practice">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
+        </a>
+        <a href="#/stats" data-nav="stats" title="stats">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        </a>
+        <a href="#/settings" data-nav="settings" title="settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- TEST -->
+      <section id="view-test" class="view" aria-label="test">
+        <div class="config" id="config">
+          <div class="cfg-group" role="group" aria-label="operations">
+            <button data-op="add" title="addition">+ add</button>
+            <button data-op="sub" title="subtraction">− sub</button>
+            <button data-op="mul" title="multiplication">× mul</button>
+            <button data-op="div" title="division">÷ div</button>
+          </div>
+          <span class="cfg-sep"></span>
+          <div class="cfg-group" role="group" aria-label="mode">
+            <button data-mode="time">time</button>
+            <button data-mode="problems">problems</button>
+            <button data-mode="zen">zen</button>
+          </div>
+          <span class="cfg-sep"></span>
+          <div class="cfg-group" role="group" aria-label="length" id="amounts"></div>
+        </div>
+        <div class="config config-2" id="config2">
+          <div class="cfg-group" role="group" aria-label="addition and subtraction digits" data-for="add">
+            <span class="cfg-label">+ − digits</span>
+            <button data-add-digits="1">1</button>
+            <button data-add-digits="2">2</button>
+            <button data-add-digits="3">3</button>
+            <button data-add-digits="4">4</button>
+          </div>
+          <span class="cfg-sep" data-for="both"></span>
+          <div class="cfg-group" role="group" aria-label="multiplication and division digits" data-for="mul">
+            <span class="cfg-label">× ÷ digits</span>
+            <button data-mul-digits="1">1</button>
+            <button data-mul-digits="2">2</button>
+            <button data-mul-digits="3">3</button>
+          </div>
+          <span class="cfg-sep" data-for="sub"></span>
+          <div class="cfg-group" role="group" aria-label="negative results" data-for="sub">
+            <button data-neg title="allow subtraction results below zero">negatives</button>
+          </div>
+        </div>
+
+        <div class="stage" id="stage">
+          <div class="live" id="live">
+            <span id="live-progress" class="live-progress">30</span>
+            <span id="live-ppm" class="live-sub"></span>
+          </div>
+          <div class="problem-wrap">
+            <div class="start-hint" id="start-hint">press any key to start</div>
+            <div class="problem" id="problem" aria-live="polite">0 + 0</div>
+            <div class="answer-row">
+              <span class="eq">=</span>
+              <input id="answer" class="answer" type="text" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="answer" enterkeyhint="next">
+            </div>
+            <div class="reveal" id="reveal" aria-live="polite"></div>
+            <div class="next" id="next"></div>
+          </div>
+          <div class="focus-veil" id="veil">click or press any key to focus</div>
+        </div>
+
+        <div class="test-actions">
+          <button class="icon-btn" id="btn-restart" title="restart (tab)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>
+          </button>
+          <button class="icon-btn" id="btn-skip" title="skip (enter)">skip</button>
+          <button class="icon-btn hidden" id="btn-finish" title="finish (shift + enter)">finish</button>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section id="view-result" class="view hidden" aria-label="result">
+        <div class="result-top">
+          <div class="big-stats">
+            <div class="big"><div class="big-label">ppm</div><div class="big-value" id="r-ppm">0</div></div>
+            <div class="big"><div class="big-label">acc</div><div class="big-value" id="r-acc">0%</div></div>
+          </div>
+          <div class="chart" id="r-chart"></div>
+        </div>
+        <div class="pb-badge hidden" id="r-pb">new personal best</div>
+        <div class="small-stats" id="r-small"></div>
+        <div class="ops-table" id="r-ops"></div>
+        <details class="slowest">
+          <summary>problem log</summary>
+          <div id="r-log" class="log"></div>
+        </details>
+        <div class="result-actions">
+          <button class="icon-btn" id="btn-next" title="next test (tab / enter)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="icon-btn" id="btn-retry-slow" title="practice the ones you missed or were slowest at">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section id="view-stats" class="view hidden" aria-label="stats">
+        <div class="stats-summary" id="s-summary"></div>
+        <h2 class="section-title">personal bests</h2>
+        <div id="s-pbs" class="pbs"></div>
+        <h2 class="section-title">ppm over time</h2>
+        <div class="stats-filter" id="s-filter"></div>
+        <div class="chart" id="s-chart"></div>
+        <h2 class="section-title">by operation</h2>
+        <div class="ops-table" id="s-ops"></div>
+        <h2 class="section-title">recent tests</h2>
+        <div id="s-recent" class="recent"></div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="view-settings" class="view hidden" aria-label="settings">
+        <div class="setting">
+          <div><h3>theme</h3><p>colors for the whole app.</p></div>
+          <div class="cfg-group" id="set-theme">
+            <button data-theme-btn="ink">ink</button>
+            <button data-theme-btn="paper">paper</button>
+            <button data-theme-btn="matcha">matcha</button>
+            <button data-theme-btn="dusk">dusk</button>
+          </div>
+        </div>
+        <div class="setting">
+          <div><h3>show next problem</h3><p>preview the upcoming problem, faded, under the current one.</p></div>
+          <div class="cfg-group"><button data-toggle="showNext">on</button></div>
+        </div>
+        <div class="setting">
+          <div><h3>live stats</h3><p>show problems per minute while you play.</p></div>
+          <div class="cfg-group"><button data-toggle="liveStats">on</button></div>
+        </div>
+        <div class="setting">
+          <div><h3>reveal answer on skip</h3><p>briefly show the right answer when you skip with enter.</p></div>
+          <div class="cfg-group"><button data-toggle="revealOnSkip">on</button></div>
+        </div>
+        <div class="setting">
+          <div><h3>your data</h3><p>results are saved in this browser only. export them to keep a backup or move them to another device.</p></div>
+          <div class="cfg-group">
+            <button id="btn-export">export</button>
+            <button id="btn-import">import</button>
+            <button id="btn-reset" class="danger">reset</button>
+            <input type="file" id="import-file" accept="application/json,.json" hidden>
+          </div>
+        </div>
+        <div class="about">
+          <h3>how it works</h3>
+          <p>Press any key to reveal the first problem; that starts the clock. Type the answer: it is accepted the moment it is right, so there is no enter key. A wrong digit turns red; backspace and fix it, or press <b>enter</b> to skip.</p>
+          <p>Pick operations, digits and a length in the bar above the problem. <b>time</b> counts down (15–120 s), <b>problems</b> ends after a fixed number, <b>zen</b> runs until you finish it with shift + enter.</p>
+          <p>After a test, <b>review</b> drills the problems you skipped, got wrong, or were slowest at.</p>
+          <p><b>ppm</b> is problems solved per minute. <b>acc</b> is the share of keystrokes that were not mistakes. <b>consistency</b> is how even your solve times were.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bottom">
+      <div class="keys" id="keys">
+        <span><kbd>tab</kbd> restart</span>
+        <span><kbd>enter</kbd> skip</span>
+        <span class="zen-only hidden"><kbd>shift</kbd> + <kbd>enter</kbd> finish</span>
+      </div>
+      <div class="foot-links">
+        <a href="https://github.com/0980491/ezmathz" target="_blank" rel="noopener">github</a>
+      </div>
+    </footer>
+  </div>
+  <div class="toast hidden" id="toast" role="status"></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
